@@ -1,0 +1,22 @@
+.wrapper { display: flex; flex-direction: column; gap: 8px; }
+
+.label {
+  font-size: 11px; color: var(--text3); font-weight: 700;
+  letter-spacing: 0.9px; font-family: var(--font-head);
+}
+
+.valueInput {
+  font-size: 22px !important; font-weight: 700 !important;
+  text-align: center; padding: 14px 12px !important;
+  font-family: var(--font-head) !important; letter-spacing: -0.5px;
+  color: var(--text) !important;
+}
+.valueInput::-webkit-outer-spin-button,
+.valueInput::-webkit-inner-spin-button { -webkit-appearance: none; }
+.valueInput[type="number"] { -moz-appearance: textfield; }
+
+.unitSelect {
+  text-align: center; font-weight: 600; font-family: var(--font-head);
+  background: var(--surface2) !important; font-size: 14px !important;
+  color: var(--text2) !important;
+}

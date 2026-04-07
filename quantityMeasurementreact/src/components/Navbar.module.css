@@ -1,0 +1,58 @@
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(255,255,255,0.88);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 36px;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 64px;
+  box-shadow: 0 1px 0 var(--border), 0 2px 12px rgba(26,26,46,0.05);
+}
+
+.logo {
+  font-family: var(--font-head); font-size: 21px; font-weight: 800;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text; letter-spacing: -0.5px;
+  cursor: pointer; border: none; outline: none; padding: 0;
+}
+
+.links { display: flex; align-items: center; gap: 6px; }
+
+.navBtn {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--font-head); font-size: 13px; font-weight: 600;
+  border-radius: var(--r); padding: 7px 16px;
+  cursor: pointer; transition: all 0.18s; outline: none; letter-spacing: 0.1px;
+}
+.navBtn:active { transform: scale(0.97); }
+
+.ghost {
+  background: transparent; border: 1.5px solid var(--border2); color: var(--text2);
+}
+.ghost:hover { background: var(--surface2); color: var(--text); border-color: var(--accent2); }
+
+.primary {
+  background: var(--accent); border: none; color: #fff;
+  box-shadow: 0 3px 14px rgba(91,80,232,0.3);
+}
+.primary:hover { background: var(--accent2); box-shadow: 0 5px 20px rgba(91,80,232,0.4); }
+
+.active {
+  background: var(--accent-bg2); border: 1.5px solid rgba(91,80,232,0.25);
+  color: var(--accent);
+}
+
+.avatar {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700; color: #fff;
+  font-family: var(--font-head); flex-shrink: 0;
+}
+.userChip { display: flex; align-items: center; gap: 8px; }
+
+@media (max-width: 500px) {
+  .nav { padding: 0 16px; }
+  .navBtn { padding: 7px 12px; font-size: 12px; }
+}

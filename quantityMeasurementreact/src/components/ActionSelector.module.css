@@ -1,0 +1,20 @@
+.label {
+  font-size: 11px; color: var(--text3); font-weight: 700;
+  letter-spacing: 0.9px; margin-bottom: 12px; font-family: var(--font-head);
+}
+.tabBar {
+  display: flex; gap: 3px;
+  background: var(--bg2); border: 1.5px solid var(--border);
+  border-radius: var(--r); padding: 4px;
+}
+.tab {
+  flex: 1; padding: 9px 14px; text-align: center;
+  border-radius: 7px; cursor: pointer;
+  font-family: var(--font-head); font-size: 13px; font-weight: 600;
+  color: var(--text2); transition: all 0.17s; border: none; background: none; outline: none;
+}
+.tab:hover:not(.active) { color: var(--text); background: rgba(255,255,255,0.7); }
+.tab.active {
+  background: var(--surface); color: var(--accent);
+  box-shadow: var(--shadow-sm); font-weight: 700;
+}
