@@ -1,2 +1,2 @@
-# QuantityMeasurementApp-Frontend-
-frontend of quantity measurement app
+# QuantityMeasurementApp-Frontend-React
+
