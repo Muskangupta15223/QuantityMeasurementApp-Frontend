@@ -1,0 +1,183 @@
+/* ============================================================
+   styles.css — Global styles, layout, theme variables,
+                responsive breakpoints
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Poppins:wght@400;500;600;700&display=swap');
+
+/* ── CSS Variables ──────────────────────────────────────── */
+:root {
+  --primary:        #4361ee;
+  --primary-dark:   #3451d1;
+  --primary-light:  #eef1fd;
+  --accent:         #7b2ff7;
+  --crimson:        #9b2226;
+  --crimson-hover:  #ae2d30;
+  --teal:           #4fc3c7;
+  --orange:         #ffb347;
+  --red-temp:       #e05c5c;
+
+  --bg:             #eef1fb;
+  --white:          #ffffff;
+  --text:           #1a1a2e;
+  --text-muted:     #8b93b0;
+  --border:         #dde3f5;
+
+  --shadow-sm:  0 2px 8px  rgba(67,97,238,0.08);
+  --shadow:     0 8px 32px rgba(67,97,238,0.12);
+  --shadow-lg:  0 16px 48px rgba(67,97,238,0.20);
+
+  --radius:    16px;
+  --radius-md: 12px;
+  --radius-sm: 10px;
+  --radius-xs: 6px;
+
+  --font-head: 'Nunito',  sans-serif;
+  --font-body: 'Poppins', sans-serif;
+
+  --transition: 0.2s ease;
+}
+
+/* ── Reset ──────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background:  var(--bg);
+  color:       var(--text);
+  min-height:  100vh;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { text-decoration: none; color: inherit; }
+button { font-family: var(--font-body); cursor: pointer; }
+input, select { font-family: var(--font-body); }
+
+/* ── Utility ────────────────────────────────────────────── */
+.hidden { display: none !important; }
+.flex   { display: flex; }
+.center { display: flex; align-items: center; justify-content: center; }
+
+/* ── App Top-Nav ────────────────────────────────────────── */
+.app-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: 60px;
+  background: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  box-shadow: 0 2px 16px rgba(67,97,238,0.35);
+}
+
+.nav-logo {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 18px;
+  color: #fff;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.btn-logout {
+  background: rgba(255,255,255,0.15);
+  border: 1.5px solid rgba(255,255,255,0.35);
+  color: #fff;
+  padding: 6px 18px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  transition: background var(--transition);
+}
+.btn-logout:hover { background: rgba(255,255,255,0.28); }
+
+/* ── App Layout ─────────────────────────────────────────── */
+.app-body {
+  display: flex;
+  min-height: calc(100vh - 60px);
+}
+
+.main-panel {
+  flex: 1;
+  padding: 32px;
+  min-width: 0;
+}
+
+.sidebar-panel {
+  width: 300px;
+  flex-shrink: 0;
+  background: var(--white);
+  border-left: 1.5px solid var(--border);
+  padding: 24px 18px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+/* ── Error Banner ───────────────────────────────────────── */
+.error-banner {
+  background: #fff5f5;
+  border: 1.5px solid #f8c8c8;
+  color: var(--crimson);
+  padding: 12px 18px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+/* ── Toast ──────────────────────────────────────────────── */
+#toast {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  background: #1a1a2e;
+  color: #fff;
+  padding: 11px 22px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  z-index: 9999;
+  box-shadow: var(--shadow-lg);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+#toast.show {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 960px) {
+  .app-body        { flex-direction: column; }
+  .sidebar-panel   { width: 100%; border-left: none; border-top: 1.5px solid var(--border); }
+  .main-panel      { padding: 20px; }
+}
+
+@media (max-width: 600px) {
+  .app-nav   { padding: 0 16px; }
+  .main-panel { padding: 14px; }
+}

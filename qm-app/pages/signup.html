@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Signup — Online Book Shopping</title>
+  <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="../css/components.css" />
+</head>
+<body>
+
+<div class="auth-page">
+  <div class="auth-wrapper">
+
+    <!-- Illustration Panel -->
+    <div class="auth-illustration">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="100" cy="100" r="92" fill="#dbeeff"/>
+        <circle cx="100" cy="100" r="76" fill="#b3d7f5"/>
+        <!-- Shopping cart body -->
+        <rect x="58" y="88" width="82" height="52" rx="9" fill="#4361ee" opacity="0.92"/>
+        <!-- Cart front bar -->
+        <rect x="52" y="80" width="92" height="14" rx="5" fill="#3451d1"/>
+        <!-- Cart wheels -->
+        <circle cx="76"  cy="148" r="9" fill="#1a1a2e"/>
+        <circle cx="76"  cy="148" r="4" fill="#fff"/>
+        <circle cx="118" cy="148" r="9" fill="#1a1a2e"/>
+        <circle cx="118" cy="148" r="4" fill="#fff"/>
+        <!-- Cart handle -->
+        <line x1="52" y1="80" x2="42" y2="62" stroke="#3451d1" stroke-width="5" stroke-linecap="round"/>
+        <!-- Person: head -->
+        <circle cx="108" cy="83" r="14" fill="#ffd6a0"/>
+        <!-- Hair -->
+        <ellipse cx="108" cy="74" rx="13" ry="10" fill="#2d2d2d"/>
+        <!-- Body / torso -->
+        <rect x="90" y="93" width="26" height="34" rx="8" fill="#ffffff" opacity="0.92"/>
+        <!-- Left leg -->
+        <rect x="80" y="116" width="11" height="22" rx="5.5" fill="#6c63ff" transform="rotate(-18 85.5 116)"/>
+        <!-- Right leg -->
+        <rect x="100" y="116" width="11" height="22" rx="5.5" fill="#6c63ff" transform="rotate(12 105.5 116)"/>
+        <!-- Left shoe -->
+        <ellipse cx="74" cy="138" rx="9" ry="5" fill="#4a4a8a" transform="rotate(-18 74 138)"/>
+        <!-- Right shoe -->
+        <ellipse cx="115" cy="139" rx="9" ry="5" fill="#4a4a8a" transform="rotate(12 115 139)"/>
+        <!-- Right arm (holding book) -->
+        <line x1="103" y1="104" x2="122" y2="96" stroke="#ffd6a0" stroke-width="5" stroke-linecap="round"/>
+        <rect x="118" y="90" width="22" height="14" rx="4" fill="#ff6b6b" transform="rotate(-22 129 97)"/>
+        <!-- Left arm (waving) -->
+        <line x1="90"  y1="100" x2="76" y2="88"  stroke="#ffd6a0" stroke-width="5" stroke-linecap="round"/>
+        <line x1="76"  y1="88"  x2="72" y2="76"  stroke="#ffd6a0" stroke-width="5" stroke-linecap="round"/>
+        <!-- Stars decoration -->
+        <text x="26"  y="52"  font-size="14" fill="#ffb347" opacity=".75">★</text>
+        <text x="158" y="58"  font-size="11" fill="#ffb347" opacity=".55">★</text>
+        <text x="142" y="144" font-size="10" fill="#ffb347" opacity=".45">★</text>
+        <text x="40"  y="142" font-size="9"  fill="#4361ee" opacity=".4">✦</text>
+      </svg>
+      <div class="brand-name">Online Book Shopping</div>
+    </div>
+
+    <!-- Auth Card -->
+    <div class="auth-card">
+
+      <!-- Tabs -->
+      <div class="auth-tabs">
+        <button class="auth-tab-btn" id="tab-login"  onclick="goLogin()">Login</button>
+        <button class="auth-tab-btn active" id="tab-signup">Signup</button>
+      </div>
+
+      <!-- Signup Form -->
+      <form class="auth-form active" id="signup-form" novalidate>
+
+        <!-- Full Name -->
+        <div class="form-group">
+          <label for="su-name">Full Name</label>
+          <input
+            type="text"
+            id="su-name"
+            name="fullName"
+            placeholder="Enter your full name"
+            autocomplete="name"
+          />
+          <div class="field-error" id="su-name-err"></div>
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+          <label for="su-email">Email Id</label>
+          <input
+            type="email"
+            id="su-email"
+            name="email"
+            placeholder="Enter your email address"
+            autocomplete="email"
+          />
+          <div class="field-error" id="su-email-err"></div>
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+          <label for="su-password">Password</label>
+          <div class="pw-wrap">
+            <input
+              type="password"
+              id="su-password"
+              name="password"
+              placeholder="Create a strong password"
+              autocomplete="new-password"
+            />
+            <button type="button" class="pw-toggle" aria-label="Toggle password visibility"
+              onclick="togglePw('su-password', this)">👁</button>
+          </div>
+          <!-- Password strength indicator -->
+          <div class="pw-strength" id="pw-strength-bars">
+            <div class="pw-strength-bar" id="bar1"></div>
+            <div class="pw-strength-bar" id="bar2"></div>
+            <div class="pw-strength-bar" id="bar3"></div>
+          </div>
+          <div class="pw-strength-label" id="pw-strength-label"></div>
+          <div class="field-error" id="su-pw-err"></div>
+        </div>
+
+        <!-- Mobile Number -->
+        <div class="form-group">
+          <label for="su-mobile">Mobile Number</label>
+          <input
+            type="tel"
+            id="su-mobile"
+            name="mobile"
+            placeholder="Enter 10-digit mobile number"
+            maxlength="10"
+            autocomplete="tel"
+          />
+          <div class="field-error" id="su-mob-err"></div>
+        </div>
+
+        <button type="submit" class="btn-auth">Signup</button>
+
+        <div class="auth-footer">
+          Already have an account? <a onclick="goLogin()">Login here</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+  // ── Navigate to login ─────────────────────────────────────
+  function goLogin() {
+    window.location.href = 'login.html';
+  }
+
+  // ── Toggle password visibility ────────────────────────────
+  function togglePw(id, btn) {
+    const inp = document.getElementById(id);
+    if (inp.type === 'password') { inp.type = 'text'; btn.textContent = '🙈'; }
+    else                         { inp.type = 'password'; btn.textContent = '👁'; }
+  }
+
+  // ── Password strength ─────────────────────────────────────
+  document.getElementById('su-password').addEventListener('input', function () {
+    const val = this.value;
+    const bars  = [document.getElementById('bar1'), document.getElementById('bar2'), document.getElementById('bar3')];
+    const label = document.getElementById('pw-strength-label');
+    bars.forEach(b => b.className = 'pw-strength-bar');
+
+    let strength = 0;
+    if (val.length >= 6)                         strength++;
+    if (val.length >= 10)                        strength++;
+    if (/[A-Z]/.test(val) && /[0-9]/.test(val)) strength++;
+
+    const map = [
+      { cls: '', text: '' },
+      { cls: 'weak',   text: 'Weak' },
+      { cls: 'fair',   text: 'Fair' },
+      { cls: 'strong', text: 'Strong ✓' },
+    ];
+    for (let i = 0; i < strength; i++) bars[i].classList.add(map[strength].cls);
+    label.textContent = val.length ? map[strength].text : '';
+    label.style.color = ['','#e63946','#ffb347','#52b788'][strength];
+  });
+
+  // ── Validation helpers ────────────────────────────────────
+  function setFieldState(inputId, errId, valid, msg) {
+    const inp = document.getElementById(inputId);
+    const err = document.getElementById(errId);
+    inp.classList.toggle('input-error',   !valid);
+    inp.classList.toggle('input-success',  valid && inp.value !== '');
+    err.textContent = valid ? '' : msg;
+    return valid;
+  }
+
+  // Real-time per-field validation
+  document.getElementById('su-name').addEventListener('blur', function () {
+    setFieldState('su-name', 'su-name-err', this.value.trim().length >= 2, 'Full name must be at least 2 characters.');
+  });
+
+  document.getElementById('su-email').addEventListener('blur', function () {
+    const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.value.trim());
+    setFieldState('su-email', 'su-email-err', ok, 'Please enter a valid email address.');
+  });
+
+  document.getElementById('su-password').addEventListener('blur', function () {
+    setFieldState('su-password', 'su-pw-err', this.value.length >= 6, 'Password must be at least 6 characters.');
+  });
+
+  document.getElementById('su-mobile').addEventListener('input', function () {
+    this.value = this.value.replace(/\D/g, '').slice(0, 10); // digits only
+  });
+  document.getElementById('su-mobile').addEventListener('blur', function () {
+    setFieldState('su-mobile', 'su-mob-err', /^\d{10}$/.test(this.value), 'Enter a valid 10-digit mobile number.');
+  });
+
+  // ── Form submission ───────────────────────────────────────
+  document.getElementById('signup-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const name   = document.getElementById('su-name').value.trim();
+    const email  = document.getElementById('su-email').value.trim();
+    const pw     = document.getElementById('su-password').value;
+    const mobile = document.getElementById('su-mobile').value.trim();
+
+    let allValid = true;
+
+    if (name.length < 2) {
+      setFieldState('su-name', 'su-name-err', false, 'Full name must be at least 2 characters.');
+      allValid = false;
+    } else {
+      setFieldState('su-name', 'su-name-err', true, '');
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setFieldState('su-email', 'su-email-err', false, 'Please enter a valid email address.');
+      allValid = false;
+    } else {
+      setFieldState('su-email', 'su-email-err', true, '');
+    }
+
+    if (pw.length < 6) {
+      setFieldState('su-password', 'su-pw-err', false, 'Password must be at least 6 characters.');
+      allValid = false;
+    } else {
+      setFieldState('su-password', 'su-pw-err', true, '');
+    }
+
+    if (!/^\d{10}$/.test(mobile)) {
+      setFieldState('su-mobile', 'su-mob-err', false, 'Enter a valid 10-digit mobile number.');
+      allValid = false;
+    } else {
+      setFieldState('su-mobile', 'su-mob-err', true, '');
+    }
+
+    if (!allValid) return;
+
+    // Check if already registered
+    const users = JSON.parse(localStorage.getItem('qm_users') || '[]');
+    if (users.find(u => u.email === email)) {
+      setFieldState('su-email', 'su-email-err', false, 'This email is already registered.');
+      return;
+    }
+
+    // Save user
+    users.push({ name, email, pw, mobile });
+    localStorage.setItem('qm_users', JSON.stringify(users));
+
+    // Toast and redirect
+    showToast('✓ Account created! Redirecting to login…');
+    setTimeout(() => {
+      window.location.href = 'login.html?email=' + encodeURIComponent(email);
+    }, 1800);
+  });
+
+  // ── Toast ─────────────────────────────────────────────────
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3000);
+  }
+</script>
+</body>
+</html>

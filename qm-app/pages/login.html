@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login — Online Book Shopping</title>
+  <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="../css/components.css" />
+</head>
+<body>
+
+<div class="auth-page">
+  <div class="auth-wrapper">
+
+    <!-- Illustration Panel -->
+    <div class="auth-illustration">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="100" cy="100" r="92" fill="#dbeeff"/>
+        <circle cx="100" cy="100" r="76" fill="#b3d7f5"/>
+        <rect x="58" y="88" width="82" height="52" rx="9" fill="#4361ee" opacity="0.92"/>
+        <rect x="52" y="80" width="92" height="14" rx="5" fill="#3451d1"/>
+        <circle cx="76"  cy="148" r="9" fill="#1a1a2e"/>
+        <circle cx="76"  cy="148" r="4" fill="#fff"/>
+        <circle cx="118" cy="148" r="9" fill="#1a1a2e"/>
+        <circle cx="118" cy="148" r="4" fill="#fff"/>
+        <line x1="52" y1="80" x2="42" y2="62" stroke="#3451d1" stroke-width="5" stroke-linecap="round"/>
+        <circle cx="108" cy="83" r="14" fill="#ffd6a0"/>
+        <ellipse cx="108" cy="74" rx="13" ry="10" fill="#2d2d2d"/>
+        <rect x="90" y="93" width="26" height="34" rx="8" fill="#ffffff" opacity="0.92"/>
+        <rect x="80" y="116" width="11" height="22" rx="5.5" fill="#6c63ff" transform="rotate(-18 85.5 116)"/>
+        <rect x="100" y="116" width="11" height="22" rx="5.5" fill="#6c63ff" transform="rotate(12 105.5 116)"/>
+        <ellipse cx="74" cy="138" rx="9" ry="5" fill="#4a4a8a" transform="rotate(-18 74 138)"/>
+        <ellipse cx="115" cy="139" rx="9" ry="5" fill="#4a4a8a" transform="rotate(12 115 139)"/>
+        <line x1="103" y1="104" x2="122" y2="96" stroke="#ffd6a0" stroke-width="5" stroke-linecap="round"/>
+        <rect x="118" y="90" width="22" height="14" rx="4" fill="#ff6b6b" transform="rotate(-22 129 97)"/>
+        <line x1="90"  y1="100" x2="76" y2="88"  stroke="#ffd6a0" stroke-width="5" stroke-linecap="round"/>
+        <line x1="76"  y1="88"  x2="72" y2="76"  stroke="#ffd6a0" stroke-width="5" stroke-linecap="round"/>
+        <text x="26"  y="52"  font-size="14" fill="#ffb347" opacity=".75">★</text>
+        <text x="158" y="58"  font-size="11" fill="#ffb347" opacity=".55">★</text>
+        <text x="142" y="144" font-size="10" fill="#ffb347" opacity=".45">★</text>
+        <text x="40"  y="142" font-size="9"  fill="#4361ee" opacity=".4">✦</text>
+      </svg>
+      <div class="brand-name">Online Book Shopping</div>
+    </div>
+
+    <!-- Auth Card -->
+    <div class="auth-card">
+
+      <!-- Tabs -->
+      <div class="auth-tabs">
+        <button class="auth-tab-btn active" id="tab-login">Login</button>
+        <button class="auth-tab-btn" id="tab-signup" onclick="goSignup()">Signup</button>
+      </div>
+
+      <!-- Login Form -->
+      <form class="auth-form active" id="login-form" novalidate>
+
+        <!-- Email -->
+        <div class="form-group">
+          <label for="login-email">Email Id</label>
+          <input
+            type="email"
+            id="login-email"
+            name="email"
+            placeholder="Enter your registered email"
+            autocomplete="email"
+          />
+          <div class="field-error" id="login-email-err"></div>
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+          <label for="login-password">Password</label>
+          <div class="pw-wrap">
+            <input
+              type="password"
+              id="login-password"
+              name="password"
+              placeholder="Enter your password"
+              autocomplete="current-password"
+            />
+            <button type="button" class="pw-toggle" aria-label="Toggle password"
+              onclick="togglePw('login-password', this)">👁</button>
+          </div>
+          <div class="field-error" id="login-pw-err"></div>
+        </div>
+
+        <!-- Global error (wrong credentials) -->
+        <div class="field-error" id="login-global-err" style="margin-bottom:8px; font-size:13px;"></div>
+
+        <button type="submit" class="btn-auth">Login</button>
+
+        <div class="auth-footer">
+          Don't have an account? <a onclick="goSignup()">Signup here</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+  // ── Auto-fill email from signup redirect ──────────────────
+  window.addEventListener('DOMContentLoaded', () => {
+    const params = new URLSearchParams(window.location.search);
+    const email  = params.get('email');
+    if (email) {
+      document.getElementById('login-email').value = email;
+      showToast('Account created! Please login.');
+    }
+  });
+
+  // ── Navigation ────────────────────────────────────────────
+  function goSignup() { window.location.href = 'signup.html'; }
+
+  // ── Toggle password visibility ────────────────────────────
+  function togglePw(id, btn) {
+    const inp = document.getElementById(id);
+    if (inp.type === 'password') { inp.type = 'text'; btn.textContent = '🙈'; }
+    else                         { inp.type = 'password'; btn.textContent = '👁'; }
+  }
+
+  // ── Validation helpers ────────────────────────────────────
+  function setFieldState(inputId, errId, valid, msg) {
+    const inp = document.getElementById(inputId);
+    const err = document.getElementById(errId);
+    inp.classList.toggle('input-error',   !valid);
+    inp.classList.toggle('input-success',  valid && inp.value !== '');
+    err.textContent = valid ? '' : msg;
+    return valid;
+  }
+
+  // Real-time validation on blur
+  document.getElementById('login-email').addEventListener('blur', function () {
+    const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.value.trim());
+    setFieldState('login-email', 'login-email-err', ok, 'Please enter a valid email address.');
+  });
+
+  document.getElementById('login-password').addEventListener('blur', function () {
+    setFieldState('login-password', 'login-pw-err', this.value.length > 0, 'Password is required.');
+  });
+
+  // Clear global error when user types
+  ['login-email','login-password'].forEach(id => {
+    document.getElementById(id).addEventListener('input', () => {
+      document.getElementById('login-global-err').textContent = '';
+    });
+  });
+
+  // ── Form submission with full validation ──────────────────
+  document.getElementById('login-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const email = document.getElementById('login-email').value.trim();
+    const pw    = document.getElementById('login-password').value;
+    const globalErr = document.getElementById('login-global-err');
+    globalErr.textContent = '';
+
+    let allValid = true;
+
+    // Email validation
+    if (!email) {
+      setFieldState('login-email', 'login-email-err', false, 'Email is required.');
+      allValid = false;
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setFieldState('login-email', 'login-email-err', false, 'Please enter a valid email address.');
+      allValid = false;
+    } else {
+      setFieldState('login-email', 'login-email-err', true, '');
+    }
+
+    // Password validation
+    if (!pw) {
+      setFieldState('login-password', 'login-pw-err', false, 'Password is required.');
+      allValid = false;
+    } else if (pw.length < 6) {
+      setFieldState('login-password', 'login-pw-err', false, 'Password must be at least 6 characters.');
+      allValid = false;
+    } else {
+      setFieldState('login-password', 'login-pw-err', true, '');
+    }
+
+    if (!allValid) return;
+
+    // Check credentials against localStorage
+    const users = JSON.parse(localStorage.getItem('qm_users') || '[]');
+    const user  = users.find(u => u.email === email && u.pw === pw);
+
+    if (!user) {
+      // Wrong email or password
+      setFieldState('login-email',    'login-email-err', false, '');
+      setFieldState('login-password', 'login-pw-err',    false, '');
+      globalErr.textContent = '⚠ Incorrect email or password. Please try again.';
+      document.getElementById('login-password').value = '';
+      return;
+    }
+
+    // ✓ Authenticated
+    sessionStorage.setItem('qm_current_user', JSON.stringify(user));
+    showToast('✓ Welcome back, ' + user.name.split(' ')[0] + '!');
+    setTimeout(() => {
+      window.location.href = 'index.html';
+    }, 1200);
+  });
+
+  // ── Toast ─────────────────────────────────────────────────
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3000);
+  }
+</script>
+</body>
+</html>

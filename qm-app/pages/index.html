@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quantity Measurement App</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+  </head>
+  <body>
+
+    <!-- Top Navigation -->
+    <nav class="app-nav">
+      <div class="nav-logo">📐 Quantity Measurement</div>
+      <div class="nav-right">
+        <span id="nav-username"></span>
+        <button class="btn-logout" onclick="doLogout()">Logout</button>
+      </div>
+    </nav>
+
+    <!-- App Body -->
+    <div class="app-body">
+      <!-- Main Panel -->
+      <main class="main-panel">
+        <div class="meas-card">
+          <div class="meas-card-header">Welcome To Quantity Measurement</div>
+
+          <div class="meas-card-body">
+            <!-- API error banner (UC-16) -->
+            <div class="error-banner hidden" id="api-error-banner"></div>
+
+            <!-- UC-01: Choose Type -->
+            <div class="section-label">Choose Type</div>
+            <div class="type-grid">
+              <div class="type-card active" data-type="Length">
+                <span class="tc-icon">📏</span>
+                <span class="tc-label">Length</span>
+              </div>
+              <div class="type-card" data-type="Weight">
+                <span class="tc-icon">⚖️</span>
+                <span class="tc-label">Weight</span>
+              </div>
+              <div class="type-card" data-type="Temperature">
+                <span class="tc-icon">🌡️</span>
+                <span class="tc-label">Temperature</span>
+              </div>
+              <div class="type-card" data-type="Volume">
+                <span class="tc-icon">🧪</span>
+                <span class="tc-label">Volume</span>
+              </div>
+            </div>
+
+            <!-- UC-02: Choose Action -->
+            <div class="section-label">Choose Action</div>
+            <div class="action-tabs">
+              <button class="action-tab active" data-action="Comparison">
+                Comparison
+              </button>
+              <button class="action-tab" data-action="Conversion">
+                Conversion
+              </button>
+              <button class="action-tab" data-action="Arithmetic">
+                Arithmetic
+              </button>
+            </div>
+
+            <!-- UC-05/06/07/08: Input panels -->
+            <div class="inputs-row">
+              <!-- FROM panel -->
+              <div class="input-panel">
+                <div class="input-panel-label" id="from-label">FROM</div>
+                <input
+                  type="number"
+                  id="from-val"
+                  value="1"
+                  placeholder="Enter value"
+                />
+                <select id="from-unit"></select>
+                <div class="inline-err" id="from-err"></div>
+              </div>
+
+              <!-- Center: arrow or operator buttons -->
+              <div class="op-center">
+                <span class="center-arrow" id="center-arrow">⬌</span>
+                <div class="op-btn-grid" id="op-btn-grid" style="display: none">
+                  <button class="op-btn active" data-op="+">+</button>
+                  <button class="op-btn" data-op="-">−</button>
+                  <button class="op-btn" data-op="*">×</button>
+                  <button class="op-btn" data-op="/">÷</button>
+                </div>
+              </div>
+
+              <!-- TO panel -->
+              <div class="input-panel">
+                <div class="input-panel-label" id="to-label">TO</div>
+                <input
+                  type="number"
+                  id="to-val"
+                  value="1000"
+                  placeholder="Enter value"
+                />
+                <select id="to-unit"></select>
+                <div class="inline-err" id="to-err"></div>
+              </div>
+            </div>
+
+            <!-- UC-12: Result area -->
+            <div class="result-area" id="result-area">
+              <div class="result-placeholder">
+                Enter values and select units to calculate
+              </div>
+            </div>
+
+            <!-- Calculate button -->
+            <button class="btn-calculate" id="calc-btn">Calculate</button>
+          </div>
+        </div>
+      </main>
+
+      <!-- UC-14: History sidebar -->
+      <aside class="sidebar-panel">
+        <div class="history-header">
+          <div class="history-title">📋 History</div>
+          <button class="btn-clear-hist" id="btn-clear-hist">Clear all</button>
+        </div>
+        <div class="history-scroll">
+          <div class="history-list" id="history-list">
+            <div class="hist-empty">
+              <span>🔢</span>
+              No calculations yet.<br />Run your first calculation!
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast"></div>
+
+    <!-- ── Scripts (in dependency order, per SKILL.md file structure) ── -->
+    <script src="../js/state.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/conversion.js"></script>
+    <script src="../js/ui.js"></script>
+    <script src="../js/app.js"></script>
+
+    <script>
+      // ── Auth Guard ────────────────────────────────────────────
+      // UC: Protect this page; redirect to login if no session.
+      (function () {
+        const user = JSON.parse(
+          sessionStorage.getItem("qm_current_user") || "null",
+        );
+        if (!user) {
+          window.location.replace("login.html");
+          return;
+        }
+        AppState.setUser(user);
+        document.getElementById("nav-username").textContent =
+          "Hi, " + user.name.split(" ")[0] + "!";
+      })();
+
+      // ── Logout ────────────────────────────────────────────────
+      function doLogout() {
+        sessionStorage.removeItem("qm_current_user");
+        window.location.href = "login.html";
+      }
+    </script>
+  </body>
+</html>
