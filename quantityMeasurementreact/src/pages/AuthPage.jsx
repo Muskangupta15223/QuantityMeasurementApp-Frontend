@@ -10,6 +10,11 @@ import styles from "./AuthPage.module.css";
  *   onSuccess   – called with (token, email) after successful login
  *   authHook    – { login, register, loading, error, clearError } from useAuth
  */
+// for microservice app
+const GOOGLE_AUTH_URL = "http://localhost:8082/oauth2/authorization/google";
+// for monolithic app
+// const GOOGLE_AUTH_URL = "http://localhost:8080/oauth2/authorization/google";  
+
 export default function AuthPage({ initialTab = "login", onClose, onSuccess, authHook }) {
   const { login, register, loading, error, clearError } = authHook;
   const { addToast } = useToast();
@@ -52,6 +57,9 @@ export default function AuthPage({ initialTab = "login", onClose, onSuccess, aut
 
   const handleKey = (e) => {
     if (e.key === "Enter" && !loading) handleSubmit();
+  };
+    const handleGoogleLogin = () => {
+    window.location.href = GOOGLE_AUTH_URL;
   };
 
   return (
@@ -148,6 +156,12 @@ export default function AuthPage({ initialTab = "login", onClose, onSuccess, aut
             >
               {tab === "login" ? "Sign up free" : "Sign in"}
             </button>
+                <div>
+      {/* ...existing login form... */}
+      <button onClick={handleGoogleLogin} className="google-login-btn">
+        Login with Google
+      </button>
+    </div>
           </p>
         </div>
       </div>

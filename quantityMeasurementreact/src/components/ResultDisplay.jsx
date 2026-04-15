@@ -18,7 +18,10 @@ function formatResult(result) {
 
   if (op === 'compare') {
     // resultString is "true" or "false" — make it human-readable
-    const equal = result.resultString === 'true';
+  const equal =
+  result.resultString === 'true' ||
+  result.resultString === true ||
+  result.resultString === 'Equal';
     return {
       type: 'compare',
       text: equal
