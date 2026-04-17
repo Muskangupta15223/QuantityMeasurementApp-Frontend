@@ -10,10 +10,8 @@ import styles from "./AuthPage.module.css";
  *   onSuccess   – called with (token, email) after successful login
  *   authHook    – { login, register, loading, error, clearError } from useAuth
  */
-// for microservice app
-const GOOGLE_AUTH_URL = "http://localhost:8082/oauth2/authorization/google";
-// for monolithic app
-// const GOOGLE_AUTH_URL = "http://localhost:8080/oauth2/authorization/google";  
+// Works for both monolithic (directly on 8080) and microservices (via API Gateway on 8080)
+const GOOGLE_AUTH_URL = "http://localhost:8080/oauth2/authorization/google";
 
 export default function AuthPage({ initialTab = "login", onClose, onSuccess, authHook }) {
   const { login, register, loading, error, clearError } = authHook;
